@@ -41,6 +41,7 @@
     .reader button:disabled { cursor: not-allowed; opacity: .45; }
     .reader label { color: color-mix(in oklch, #fff 78%, transparent); display: inline-flex; align-items: center; gap: 8px; font: 700 11px/1 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
     .reader input { accent-color: #fff; width: 86px; }
+    .reader select { background: #fff; border: 0; border-radius: 999px; color: var(--fg); font: 700 12px/1 var(--font-mono); max-width: 220px; padding: 9px 10px; }
     .brief-note { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--muted); display: flex; gap: 12px; justify-content: space-between; margin: 28px 0; padding: 16px; }
     .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 28px 0; }
     .summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 160px; padding: 16px; }
@@ -90,6 +91,7 @@
         <button class="primary" id="readBrief" type="button">Read Brief</button>
         <button id="pauseBrief" type="button" disabled>Pause</button>
         <button id="stopBrief" type="button" disabled>Stop</button>
+        <label for="readerVoice">Voice <select id="readerVoice"><option value="">Default</option></select></label>
         <label for="readerRate">Speed <input id="readerRate" type="range" min="0.75" max="1.25" value="0.95" step="0.05" /></label>
       </div>
     </section>
@@ -127,8 +129,10 @@
       const pauseButton = document.getElementById('pauseBrief');
       const stopButton = document.getElementById('stopBrief');
       const rateInput = document.getElementById('readerRate');
+      const voiceSelect = document.getElementById('readerVoice');
       const status = document.getElementById('readerStatus');
       let utterance = null;
+      let voices = [];
       const setControls = (reading) => {
         readButton.disabled = reading;
         pauseButton.disabled = !reading;
@@ -156,11 +160,40 @@
       if (!synth) {
         status.textContent = 'Voice reading is not supported in this browser.';
         readButton.disabled = true;
+        voiceSelect.disabled = true;
         return;
       }
+      const voiceLabel = (voice) => {
+        const local = voice.localService ? 'local' : 'remote';
+        return `${voice.name} — ${voice.lang} (${local})`;
+      };
+      const loadVoices = () => {
+        const previous = voiceSelect.value;
+        voices = synth.getVoices().filter((voice) => voice.lang && voice.lang.toLowerCase().startsWith('en'));
+        voiceSelect.innerHTML = '<option value="">Default voice</option>';
+        voices.forEach((voice, index) => {
+          const option = document.createElement('option');
+          option.value = String(index);
+          option.textContent = voiceLabel(voice);
+          voiceSelect.appendChild(option);
+        });
+        if (previous && voiceSelect.querySelector(`option[value="${previous}"]`)) {
+          voiceSelect.value = previous;
+        }
+        if (voices.length === 0) {
+          voiceSelect.disabled = true;
+          status.textContent = 'No alternate English voices were reported by this browser; the default voice is still available.';
+        } else {
+          voiceSelect.disabled = false;
+        }
+      };
+      loadVoices();
+      synth.addEventListener?.('voiceschanged', loadVoices);
       readButton.addEventListener('click', () => {
         synth.cancel();
         utterance = new SpeechSynthesisUtterance(briefText());
+        const selectedVoice = voices[Number(voiceSelect.value)];
+        if (selectedVoice) utterance.voice = selectedVoice;
         utterance.rate = Number(rateInput.value);
         utterance.pitch = 1;
         utterance.onstart = () => {
