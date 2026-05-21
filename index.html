@@ -33,6 +33,14 @@
     .lead { color: var(--muted); font-size: 19px; max-width: 760px; margin-top: 22px; }
     .meta { color: var(--muted); font: 500 13px/1.55 var(--font-mono); text-align: right; }
     .tag { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font: 700 11px/1 var(--font-mono); letter-spacing: .04em; padding: 7px 9px; text-transform: uppercase; white-space: nowrap; }
+    .reader { background: var(--fg); color: #fff; border-radius: 8px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; margin: 24px 0 0; padding: 16px; }
+    .reader p { color: color-mix(in oklch, #fff 78%, transparent); font-size: 14px; }
+    .reader-controls { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; align-items: center; }
+    .reader button { appearance: none; border: 1px solid color-mix(in oklch, #fff 22%, transparent); border-radius: 999px; background: transparent; color: #fff; cursor: pointer; font: 700 12px/1 var(--font-mono); letter-spacing: .04em; padding: 10px 12px; text-transform: uppercase; }
+    .reader button.primary { background: #fff; color: var(--fg); }
+    .reader button:disabled { cursor: not-allowed; opacity: .45; }
+    .reader label { color: color-mix(in oklch, #fff 78%, transparent); display: inline-flex; align-items: center; gap: 8px; font: 700 11px/1 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
+    .reader input { accent-color: #fff; width: 86px; }
     .brief-note { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--muted); display: flex; gap: 12px; justify-content: space-between; margin: 28px 0; padding: 16px; }
     .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 28px 0; }
     .summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 160px; padding: 16px; }
@@ -50,6 +58,8 @@
       .shell { padding: 20px; }
       .masthead, .summary, .regions, .sources { grid-template-columns: 1fr; }
       .meta { text-align: left; }
+      .reader { grid-template-columns: 1fr; }
+      .reader-controls { justify-content: flex-start; }
       .brief-note { display: block; }
       .brief-note .tag { margin-top: 12px; }
     }
@@ -70,6 +80,19 @@
         Stable page: daily-brief/index.html
       </div>
     </header>
+
+    <section class="reader" aria-label="Voice reader">
+      <div>
+        <p class="eyebrow">Voice Reader</p>
+        <p id="readerStatus">Use your browser's built-in voice to read the brief aloud. No paid service or account is required.</p>
+      </div>
+      <div class="reader-controls">
+        <button class="primary" id="readBrief" type="button">Read Brief</button>
+        <button id="pauseBrief" type="button" disabled>Pause</button>
+        <button id="stopBrief" type="button" disabled>Stop</button>
+        <label for="readerRate">Speed <input id="readerRate" type="range" min="0.75" max="1.25" value="0.95" step="0.05" /></label>
+      </div>
+    </section>
 
     <section class="brief-note">
       <p><strong>Run status:</strong> Today's edition was refreshed manually and is being pushed to GitHub now.</p>
@@ -97,5 +120,81 @@
 
     <footer class="foot">Daily Global Atlas Wire Brief. Generated manually by Codex on May 21, 2026 at 8:02 AM America/Chicago.</footer>
   </main>
+  <script>
+    (() => {
+      const synth = window.speechSynthesis;
+      const readButton = document.getElementById('readBrief');
+      const pauseButton = document.getElementById('pauseBrief');
+      const stopButton = document.getElementById('stopBrief');
+      const rateInput = document.getElementById('readerRate');
+      const status = document.getElementById('readerStatus');
+      let utterance = null;
+      const setControls = (reading) => {
+        readButton.disabled = reading;
+        pauseButton.disabled = !reading;
+        stopButton.disabled = !reading;
+        if (!reading) pauseButton.textContent = 'Pause';
+      };
+      const briefText = () => {
+        const parts = [
+          'Daily Global Atlas.',
+          document.querySelector('h1')?.textContent,
+          document.querySelector('.lead')?.textContent,
+          'Top summary.',
+          ...Array.from(document.querySelectorAll('.summary-card p')).map((node, index) => `Item ${index + 1}. ${node.textContent}`),
+          'Regional brief.',
+          ...Array.from(document.querySelectorAll('.region')).map((region) => {
+            const heading = region.querySelector('h2')?.textContent || '';
+            const body = Array.from(region.querySelectorAll('p, li')).map((node) => node.textContent).join(' ');
+            return `${heading}. ${body}`;
+          }),
+          'Watch next.',
+          ...Array.from(document.querySelectorAll('.watch li')).map((node) => node.textContent)
+        ];
+        return parts.filter(Boolean).join(' ');
+      };
+      if (!synth) {
+        status.textContent = 'Voice reading is not supported in this browser.';
+        readButton.disabled = true;
+        return;
+      }
+      readButton.addEventListener('click', () => {
+        synth.cancel();
+        utterance = new SpeechSynthesisUtterance(briefText());
+        utterance.rate = Number(rateInput.value);
+        utterance.pitch = 1;
+        utterance.onstart = () => {
+          status.textContent = 'Reading the brief aloud.';
+          setControls(true);
+        };
+        utterance.onend = () => {
+          status.textContent = 'Finished reading the brief.';
+          setControls(false);
+        };
+        utterance.onerror = () => {
+          status.textContent = 'The browser stopped the voice reader.';
+          setControls(false);
+        };
+        synth.speak(utterance);
+      });
+      pauseButton.addEventListener('click', () => {
+        if (synth.paused) {
+          synth.resume();
+          pauseButton.textContent = 'Pause';
+          status.textContent = 'Reading the brief aloud.';
+        } else {
+          synth.pause();
+          pauseButton.textContent = 'Resume';
+          status.textContent = 'Paused.';
+        }
+      });
+      stopButton.addEventListener('click', () => {
+        synth.cancel();
+        status.textContent = 'Stopped.';
+        setControls(false);
+      });
+      window.addEventListener('beforeunload', () => synth.cancel());
+    })();
+  </script>
 </body>
 </html>
