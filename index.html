@@ -49,6 +49,12 @@
     .regions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
     .region { background: #fff; border: 1px solid var(--border); border-left: 6px solid var(--region-color, var(--accent)); border-radius: 8px; padding: 18px; min-height: 230px; }
     .region p { color: var(--muted); margin-bottom: 14px; }
+    .apwire { border-top: 1px solid var(--border); margin-top: 32px; padding-top: 24px; }
+    .ap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+    .ap-region { background: var(--surface); border: 1px solid var(--border); border-left: 6px solid var(--region-color, var(--accent)); border-radius: 8px; padding: 18px; }
+    .ap-region h3 { font-size: 17px; margin: 0 0 10px; }
+    .ap-region ol { color: var(--muted); margin: 0; padding-left: 21px; }
+    .ap-region li + li { margin-top: 8px; }
     .region ul, .watch ul, .sources ul { color: var(--muted); margin: 0; padding-left: 19px; }
     .region li + li, .watch li + li, .sources li + li { margin-top: 8px; }
     .source-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
@@ -57,7 +63,7 @@
     .foot { color: var(--muted); font: 500 12px/1.5 var(--font-mono); margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
     @media (max-width: 860px) {
       .shell { padding: 20px; }
-      .masthead, .summary, .regions, .sources { grid-template-columns: 1fr; }
+      .masthead, .summary, .regions, .ap-grid, .sources { grid-template-columns: 1fr; }
       .meta { text-align: left; }
       .reader { grid-template-columns: 1fr; }
       .reader-controls { justify-content: flex-start; }
@@ -102,25 +108,174 @@
     </section>
 
     <section class="summary" aria-label="Top summary">
-      <article class="summary-card"><div class="num">01</div><p>The UN General Assembly voted 141-8 to adopt a world court climate opinion, with the U.S. among the few opposing votes.</p></article>
-      <article class="summary-card"><div class="num">02</div><p>Colombia's ELN rebels and FARC dissidents announced a ceasefire for the presidential election.</p></article>
-      <article class="summary-card"><div class="num">03</div><p>The U.S. is moving toward criminal charges against Raul Castro, while Cuba's foreign minister rejected White House criticism.</p></article>
-      <article class="summary-card"><div class="num">04</div><p>An American Ebola patient was evacuated from the Democratic Republic of Congo to Germany and is stable, according to U.S. health officials.</p></article>
+      <article class="summary-card">
+        <div class="num">01</div>
+        <p>The UN General Assembly voted 141-8 to adopt a world court climate opinion, with the U.S. among the few opposing votes.</p>
+      </article>
+      <article class="summary-card">
+        <div class="num">02</div>
+        <p>Colombia's ELN rebels and FARC dissidents announced a ceasefire for the presidential election.</p>
+      </article>
+      <article class="summary-card">
+        <div class="num">03</div>
+        <p>The U.S. is moving toward criminal charges against Raul Castro, while Cuba's foreign minister rejected White House criticism.</p>
+      </article>
+      <article class="summary-card">
+        <div class="num">04</div>
+        <p>An American Ebola patient was evacuated from the Democratic Republic of Congo to Germany and is stable, according to U.S. health officials.</p>
+      </article>
     </section>
 
     <section class="regions" aria-label="Regional sections">
-      <article class="region" style="--region-color: var(--europe)"><h2>Europe</h2><p>Europe is led by health logistics and diplomacy. Reuters reports an American Ebola patient evacuated from Congo arrived in Germany in stable condition, while Turkey's Erdogan told Trump that issues with Iran can be resolved diplomatically.</p><ul><li>Germany: U.S. officials said the evacuated Ebola patient is stable after transfer from Congo.</li><li>Turkey: Erdogan welcomed U.S.-Iran engagement and said Ankara sees room for diplomacy.</li></ul><div class="source-row"><a class="tag" href="https://www.investing.com/news/world-news">Reuters wire list</a></div></article>
-      <article class="region" style="--region-color: var(--asia)"><h2>Asia-Pacific</h2><p>The Asia-Pacific wire pass is lighter this morning. The global climate vote still matters for the region because Pacific island states and climate-vulnerable countries have been central to international climate-law pressure.</p><ul><li>Climate diplomacy: the UN vote strengthens legal pressure around emissions and state responsibility.</li><li>Coverage note: no stronger same-day Asia-Pacific headline surfaced in the public Reuters pass I verified this morning.</li></ul><div class="source-row"><a class="tag" href="https://www.investing.com/news/world-news">Reuters wire list</a></div></article>
-      <article class="region" style="--region-color: var(--middle-east)"><h2>Middle East</h2><p>Iran remains the Middle East focus. Reuters reports Turkey's Erdogan told Trump in a call that issues with Iran can be resolved, welcoming engagement as Washington and Tehran continue to test a possible diplomatic route.</p><ul><li>Diplomacy: Turkey is positioning itself as a supporter of talks.</li><li>Gaza: Reuters also reports Gaza residents face Hajj restrictions and difficulty making animal sacrifices as a major Muslim festival approaches.</li></ul><div class="source-row"><a class="tag" href="https://www.investing.com/news/world-news">Reuters wire list</a></div></article>
-      <article class="region" style="--region-color: var(--americas)"><h2>Americas</h2><p>The Americas are busy. Reuters reports Colombia's ELN rebels and FARC dissidents announced a ceasefire for the presidential election, Bolivia dismissed Colombia's ambassador, Moody's downgraded Mexico, and Washington moved toward charges against Raul Castro.</p><ul><li>Colombia: the ceasefire announcement affects election security calculations.</li><li>Mexico and Cuba: fiscal risk and U.S.-Cuba legal pressure both moved overnight.</li></ul><div class="source-row"><a class="tag" href="https://www.investing.com/news/world-news">Reuters wire list</a></div></article>
-      <article class="region" style="--region-color: var(--africa)"><h2>Africa</h2><p>Africa remains centered on public health. Reuters reports a U.S. citizen who contracted Ebola in the Democratic Republic of Congo was evacuated to Germany and is stable, keeping Congo's outbreak and international medical response in focus.</p><ul><li>Congo: the evacuation follows the broader Ebola emergency that has been building through the week.</li><li>Health systems: cross-border monitoring and evacuation protocols remain watch items.</li></ul><div class="source-row"><a class="tag" href="https://www.investing.com/news/world-news">Reuters wire list</a></div></article>
+      <article class="region" style="--region-color: var(--europe)">
+        <h2>Europe</h2>
+        <p>Europe is led by health logistics and diplomacy. Reuters reports an American Ebola patient evacuated from Congo arrived in Germany in stable condition, while Turkey's Erdogan told Trump that issues with Iran can be resolved diplomatically.</p>
+        <ul>
+          <li>Germany: U.S. officials said the evacuated Ebola patient is stable after transfer from Congo.</li>
+          <li>Turkey: Erdogan welcomed U.S.-Iran engagement and said Ankara sees room for diplomacy.</li>
+        </ul>
+        <div class="source-row">
+          <a class="tag" href="https://www.investing.com/news/world-news">Reuters wire list</a>
+        </div>
+      </article>
+
+      <article class="region" style="--region-color: var(--asia)">
+        <h2>Asia-Pacific</h2>
+        <p>The Asia-Pacific wire pass is lighter this morning. The global climate vote still matters for the region because Pacific island states and climate-vulnerable countries have been central to international climate-law pressure.</p>
+        <ul>
+          <li>Climate diplomacy: the UN vote strengthens legal pressure around emissions and state responsibility.</li>
+          <li>Coverage note: no stronger same-day Asia-Pacific headline surfaced in the public Reuters pass I verified this morning.</li>
+        </ul>
+        <div class="source-row">
+          <a class="tag" href="https://www.investing.com/news/world-news">Reuters wire list</a>
+        </div>
+      </article>
+
+      <article class="region" style="--region-color: var(--middle-east)">
+        <h2>Middle East</h2>
+        <p>Iran remains the Middle East focus. Reuters reports Turkey's Erdogan told Trump in a call that issues with Iran can be resolved, welcoming engagement as Washington and Tehran continue to test a possible diplomatic route.</p>
+        <ul>
+          <li>Diplomacy: Turkey is positioning itself as a supporter of talks.</li>
+          <li>Gaza: Reuters also reports Gaza residents face Hajj restrictions and difficulty making animal sacrifices as a major Muslim festival approaches.</li>
+        </ul>
+        <div class="source-row">
+          <a class="tag" href="https://www.investing.com/news/world-news">Reuters wire list</a>
+        </div>
+      </article>
+
+      <article class="region" style="--region-color: var(--americas)">
+        <h2>Americas</h2>
+        <p>The Americas are busy. Reuters reports Colombia's ELN rebels and FARC dissidents announced a ceasefire for the presidential election, Bolivia dismissed Colombia's ambassador, Moody's downgraded Mexico, and Washington moved toward charges against Raul Castro.</p>
+        <ul>
+          <li>Colombia: the ceasefire announcement affects election security calculations.</li>
+          <li>Mexico and Cuba: fiscal risk and U.S.-Cuba legal pressure both moved overnight.</li>
+        </ul>
+        <div class="source-row">
+          <a class="tag" href="https://www.investing.com/news/world-news">Reuters wire list</a>
+        </div>
+      </article>
+
+      <article class="region" style="--region-color: var(--africa)">
+        <h2>Africa</h2>
+        <p>Africa remains centered on public health. Reuters reports a U.S. citizen who contracted Ebola in the Democratic Republic of Congo was evacuated to Germany and is stable, keeping Congo's outbreak and international medical response in focus.</p>
+        <ul>
+          <li>Congo: the evacuation follows the broader Ebola emergency that has been building through the week.</li>
+          <li>Health systems: cross-border monitoring and evacuation protocols remain watch items.</li>
+        </ul>
+        <div class="source-row">
+          <a class="tag" href="https://www.investing.com/news/world-news">Reuters wire list</a>
+        </div>
+      </article>
     </section>
 
-    <section class="watch"><h2>Watch Next</h2><ul><li>Whether Colombia's ceasefire announcement holds through the presidential election.</li><li>How the UN climate vote feeds into litigation, finance pressure, and national climate policy.</li><li>Whether the Raul Castro indictment produces a broader Cuba policy shift.</li><li>Whether Turkey's Iran diplomacy gains traction with Washington and Tehran.</li></ul></section>
+    <section class="apwire" aria-label="AP regional wire companion">
+      <p class="eyebrow">AP Wire Companion</p>
+      <h2>Top AP stories by region</h2>
+      <p class="lead">Top items visible on AP's public regional hubs, grouped for quick scanning alongside the Reuters brief.</p>
+      <div class="ap-grid">
+        <article class="ap-region" style="--region-color: var(--europe)">
+          <h3>Europe</h3>
+          <ol>
+            <li><a href="https://apnews.com/article/russia-ukraine-war-drones-oil-refinery-f7864b14631e19e608b0904d606473b5">Ukraine says its drones hit another refinery deep inside Russia</a></li>
+            <li><a href="https://apnews.com/article/russia-baltic-ukrainian-drones-latvia-lithuania-bee2f1620f4ba958e3af54f4b6bf7f47">Europe faces stray Ukrainian drones as Kyiv targets Russian oil exports</a></li>
+            <li><a href="https://apnews.com/article/britain-andrew-queen-trade-envoy-6e924da58fd2e41e10cf5f32b12c30ea">Documents show Queen Elizabeth backed ex-Prince Andrew as trade envoy</a></li>
+            <li><a href="https://apnews.com/article/world-court-right-to-strike-advisory-opinion-2199bbe1e530194e2af103de87e23380">The United Nations' top court will issue an advisory opinion on the right to strike</a></li>
+            <li><a href="https://apnews.com/article/europe-ukraine-membership-russia-merz-negotiations-f1c0b453fe6339858ad6c7932ce4e432">Germany urges the EU to offer Ukraine associate membership</a></li>
+          </ol>
+        </article>
+        <article class="ap-region" style="--region-color: var(--asia)">
+          <h3>Asia-Pacific</h3>
+          <ol>
+            <li><a href="https://apnews.com/article/china-russia-us-summits-xi-putin-trump-d344badcd75d5aa2a5cda4aa146785ca">The differences and similarities in the Trump and Putin visits to China</a></li>
+            <li><a href="https://apnews.com/article/india-heatwave-temperatures-3aa179491366cc8a283907392c70c73d">Heat wave empties roads and markets in north India</a></li>
+            <li><a href="https://apnews.com/article/trump-deepsea-mining-executive-orders-oceans-environment-399faab6fc32922b4c533d3bad9c1ca5">Trump's push for deep-sea mining spawns new companies and fast-tracked rules</a></li>
+            <li><a href="https://apnews.com/article/australia-elon-musk-x-esafety-fine-9ade22700f846e775cf07837364e52dc">Australian judge fines X Corp. for online safety breach</a></li>
+            <li><a href="https://apnews.com/article/myanmar-civil-war-tonzang-mawtaung-chin-69abc94fecee969a0c6fafb98c2d41eb">Myanmar military recaptures two strategic border towns</a></li>
+          </ol>
+        </article>
+        <article class="ap-region" style="--region-color: var(--middle-east)">
+          <h3>Middle East</h3>
+          <ol>
+            <li><a href="https://apnews.com/live/iran-war-israel-trump-04-28-2026">United Arab Emirates says it will exit OPEC while U.S.-Iran negotiations stall</a></li>
+            <li><a href="https://apnews.com/article/opec-united-arab-emirates-leaving-cartel-4966108c3fafacb67181152216deda14">Without UAE, OPEC will have less leverage over world oil supplies</a></li>
+            <li><a href="https://apnews.com/article/iran-us-israel-war-economy-blockade-steel-exports-7d3c6c63ec432e57325814d48938ccfe">Iran's economy has been battered as its leaders still wait Trump out</a></li>
+            <li><a href="https://apnews.com/article/iran-us-israel-war-missiles-rifle-training-tehran-df66b19c69074ca4f4195f9eca262020">In Iran's capital, weapons demonstrations send a signal at home and abroad</a></li>
+            <li><a href="https://apnews.com/article/israel-military-weapons-sales-fd3041de186ddadb6edbdd7bc7fd8b3d">Demand soars for Israel's battle-tested weapons tech</a></li>
+          </ol>
+        </article>
+        <article class="ap-region" style="--region-color: var(--africa)">
+          <h3>Africa</h3>
+          <ol>
+            <li><a href="https://apnews.com/article/congo-ebola-outbreak-who-spread-response-18537353976a958687e55f95434c918c">India-Africa summit postponed as aid groups warn Congo Ebola outbreak is gaining momentum</a></li>
+            <li><a href="https://apnews.com/article/ebola-outbreak-congo-uganda-disease-who-3c1d951834ddfb91f8a2e41bedefc398">The Ebola outbreak started weeks ago, officials believe</a></li>
+            <li><a href="https://apnews.com/article/nigeria-drug-bust-meth-lab-ad7bf33330d348c14675ef49d72fb2d8">Nigeria's anti-drug agency shuts down large meth lab</a></li>
+            <li><a href="https://apnews.com/article/sierra-leone-deportations-united-states-5ade9a8396189a335a65712c37b2e5e6">Nine deportees from the U.S. arrive in Sierra Leone under third-country agreement</a></li>
+            <li><a href="https://apnews.com/article/fake-holiday-arsenal-fans-botswana-football-soccer-deeb75fe5a5dcf6363ac30551e4955ac">Botswana says public holiday for Arsenal fans is fake news</a></li>
+          </ol>
+        </article>
+        <article class="ap-region" style="--region-color: var(--americas)">
+          <h3>Americas</h3>
+          <ol>
+            <li><a href="https://apnews.com/article/raul-castro-indictment-trump-cuba-c04030a07c1b72442e61e72ad6d78604">U.S. raises pressure on Cuba with Raul Castro indictment</a></li>
+            <li><a href="https://apnews.com/article/cuba-brothers-rescue-raul-castro-explainer-4b047a27abc4977e4d9a65dd9a773543">A Cuban exiles' group is at the heart of the Raul Castro indictment</a></li>
+            <li><a href="https://apnews.com/article/cuba-independence-day-may-20-us-trump-government-adf654bf43a54d9934245ba0153c8e2e">Cuba secured independence on May 20, 1902, but the island does not celebrate it</a></li>
+            <li><a href="https://apnews.com/article/castro-cuba-trump-tensions-a8f111c9188a29241743f647e75476e2">Timeline of recent U.S.-Cuba relations amid heightened tensions</a></li>
+            <li><a href="https://apnews.com/article/sherritt-cuba-canada-trump-sanctions-d2bd6d9a4188e6b81725c0c8a21a533a">Sherritt agrees to sell stake in Cuba mining business</a></li>
+          </ol>
+        </article>
+      </div>
+    </section>
 
-    <section class="sources"><div><p class="eyebrow">Source Notes</p><h2>Wire-first sourcing</h2></div><div><ul><li><a href="https://www.investing.com/news/world-news">Reuters: UN backs world court climate opinion; U.S. among few to oppose</a></li><li><a href="https://www.investing.com/news/world-news">Reuters: Colombia's ELN rebels and FARC dissidents announce election ceasefire</a></li><li><a href="https://www.investing.com/news/world-news">Reuters: American Ebola patient evacuated from DRC to Germany is stable</a></li><li><a href="https://www.investing.com/news/world-news">Reuters: Turkey's Erdogan tells Trump Iran issues can be resolved</a></li><li><a href="https://www.investing.com/news/world-news">Reuters: Factbox on Raul Castro indictment and U.S.-Cuba tensions</a></li><li><a href="https://www.investing.com/news/world-news">Reuters world wire list: Mexico downgrade, Bolivia-Colombia diplomacy, Gaza festival restrictions</a></li></ul></div></section>
+    <section class="watch">
+      <h2>Watch Next</h2>
+      <ul>
+        <li>Whether Colombia's ceasefire announcement holds through the presidential election.</li>
+        <li>How the UN climate vote feeds into litigation, finance pressure, and national climate policy.</li>
+        <li>Whether the Raul Castro indictment produces a broader Cuba policy shift.</li>
+        <li>Whether Turkey's Iran diplomacy gains traction with Washington and Tehran.</li>
+      </ul>
+    </section>
 
-    <footer class="foot">Daily Global Atlas Wire Brief. Generated manually by Codex on May 21, 2026 at 8:02 AM America/Chicago.</footer>
+    <section class="sources">
+      <div>
+        <p class="eyebrow">Source Notes</p>
+        <h2>Wire-first sourcing</h2>
+      </div>
+      <div>
+        <ul>
+          <li><a href="https://www.investing.com/news/world-news">Reuters: UN backs world court climate opinion; U.S. among few to oppose</a></li>
+          <li><a href="https://www.investing.com/news/world-news">Reuters: Colombia's ELN rebels and FARC dissidents announce election ceasefire</a></li>
+          <li><a href="https://www.investing.com/news/world-news">Reuters: American Ebola patient evacuated from DRC to Germany is stable</a></li>
+          <li><a href="https://www.investing.com/news/world-news">Reuters: Turkey's Erdogan tells Trump Iran issues can be resolved</a></li>
+          <li><a href="https://www.investing.com/news/world-news">Reuters: Factbox on Raul Castro indictment and U.S.-Cuba tensions</a></li>
+          <li><a href="https://www.investing.com/news/world-news">Reuters world wire list: Mexico downgrade, Bolivia-Colombia diplomacy, Gaza festival restrictions</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="foot">
+      Daily Global Atlas Wire Brief. Generated manually by Codex on May 21, 2026 at 8:02 AM America/Chicago.
+    </footer>
   </main>
   <script>
     (() => {
@@ -133,12 +288,14 @@
       const status = document.getElementById('readerStatus');
       let utterance = null;
       let voices = [];
+
       const setControls = (reading) => {
         readButton.disabled = reading;
         pauseButton.disabled = !reading;
         stopButton.disabled = !reading;
         if (!reading) pauseButton.textContent = 'Pause';
       };
+
       const briefText = () => {
         const parts = [
           'Daily Global Atlas.',
@@ -152,21 +309,30 @@
             const body = Array.from(region.querySelectorAll('p, li')).map((node) => node.textContent).join(' ');
             return `${heading}. ${body}`;
           }),
+          'Associated Press regional companion.',
+          ...Array.from(document.querySelectorAll('.ap-region')).map((region) => {
+            const heading = region.querySelector('h3')?.textContent || '';
+            const body = Array.from(region.querySelectorAll('li')).map((node, index) => `${index + 1}. ${node.textContent}`).join(' ');
+            return `${heading}. ${body}`;
+          }),
           'Watch next.',
           ...Array.from(document.querySelectorAll('.watch li')).map((node) => node.textContent)
         ];
         return parts.filter(Boolean).join(' ');
       };
+
       if (!synth) {
         status.textContent = 'Voice reading is not supported in this browser.';
         readButton.disabled = true;
         voiceSelect.disabled = true;
         return;
       }
+
       const voiceLabel = (voice) => {
         const local = voice.localService ? 'local' : 'remote';
         return `${voice.name} — ${voice.lang} (${local})`;
       };
+
       const loadVoices = () => {
         const previous = voiceSelect.value;
         voices = synth.getVoices().filter((voice) => voice.lang && voice.lang.toLowerCase().startsWith('en'));
@@ -187,8 +353,10 @@
           voiceSelect.disabled = false;
         }
       };
+
       loadVoices();
       synth.addEventListener?.('voiceschanged', loadVoices);
+
       readButton.addEventListener('click', () => {
         synth.cancel();
         utterance = new SpeechSynthesisUtterance(briefText());
@@ -210,6 +378,7 @@
         };
         synth.speak(utterance);
       });
+
       pauseButton.addEventListener('click', () => {
         if (synth.paused) {
           synth.resume();
@@ -221,11 +390,13 @@
           status.textContent = 'Paused.';
         }
       });
+
       stopButton.addEventListener('click', () => {
         synth.cancel();
         status.textContent = 'Stopped.';
         setControls(false);
       });
+
       window.addEventListener('beforeunload', () => synth.cancel());
     })();
   </script>
